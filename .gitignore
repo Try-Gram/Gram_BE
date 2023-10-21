@@ -5,6 +5,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### CUSTOM ###
+.env
+.jqwik-database
+
 ### STS ###
 .apt_generated
 .classpath
