@@ -1,18 +1,30 @@
 name: CI
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
 env:
+  REVIEWERS: Eojoonhyuk
   GRADLE_VERSION: 8.3
   JAVA_VERSION: '17'
   JAVA_DISTRIBUTION: 'temurin'
   GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
 
 jobs:
+  assign-reviewer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Assign Reviewer
+        uses: hkusu/review-assign-action@v1
+        with:
+          assignees: ${{ github.actor }}
+          reviewers: ${{ env.REVIEWERS }}
+
   check:
+    needs: assign-reviewer
     runs-on: ubuntu-latest
 
     steps:
