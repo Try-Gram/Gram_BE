@@ -24,14 +24,11 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: ${{ env.JAVA_DISTRIBUTION }}
 
-      - name: Setup Gradle
+      - name: Setup Gradle w/ cache config
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: ${{ env.GRADLE_VERSION }}
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
 
       - name: Check Code Convention
         run: gradle check
@@ -53,10 +50,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: ${{ env.JAVA_DISTRIBUTION }}
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Clean Build w/o TEST
+      - name: Clean Build w/o TEST, CHECK
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: clean build -x test
+          arguments: clean build -x test -x check
