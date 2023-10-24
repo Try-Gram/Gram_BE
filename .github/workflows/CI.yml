@@ -5,22 +5,8 @@ on:
     branches:
       - main
 
-env:
-  REVIEWERS: Hejow
-
 jobs:
-  assign-reviewer:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Assign Reviewer
-        uses: hkusu/review-assign-action@v1
-        with:
-          assignees: ${{ github.actor }}
-          reviewers: ${{ env.REVIEWERS }}
-
   check:
-    needs: assign-reviewer
     runs-on: ubuntu-latest
 
     steps:
