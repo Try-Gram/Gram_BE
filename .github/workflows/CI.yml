@@ -9,6 +9,7 @@ env:
   GRADLE_VERSION: 8.3
   JAVA_VERSION: '17'
   JAVA_DISTRIBUTION: 'temurin'
+  GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
 
 jobs:
   check:
@@ -24,7 +25,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: ${{ env.JAVA_DISTRIBUTION }}
 
-      - name: Setup Gradle w/ cache config
+      - name: Setup Gradle w/ caching
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: ${{ env.GRADLE_VERSION }}
@@ -33,7 +34,7 @@ jobs:
       - name: Check Code Convention
         run: gradle check
 
-      - name: Run Test
+      - name: Check Tests
         run: ./gradlew test
 
   build:
