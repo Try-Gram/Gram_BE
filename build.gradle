@@ -1,36 +1,21 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.5'
-    id 'io.spring.dependency-management' version '1.1.3'
-    id 'checkstyle'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
 }
 
 group = 'com.hejow'
 version = '0.0.1-SNAPSHOT'
-java.sourceCompatibility = '17'
+
 jar.enabled = false
+java.sourceCompatibility = '17'
 
-compileJava.options.encoding = 'UTF-8'
-compileTestJava.options.encoding = 'UTF-8'
-
-checkstyle {
-    maxWarnings = 0
-    configFile = file("config/checkstyle/naver-checkstyle-rules.xml")
-    configProperties = ["suppressionFile": "config/checkstyle/naver-checkstyle-suppressions.xml"]
-    toolVersion = "8.24"
-}
-
-configurations {
-    compileOnly.extendsFrom annotationProcessor
-    querydsl.extendsFrom compileClasspath
-}
-
-repositories {
-    mavenCentral()
-}
+apply from: 'gradle/jacoco.gradle'
+apply from: 'gradle/lombok.gradle'
+apply from: 'gradle/checkstyle.gradle'
+apply from: 'gradle/testsupport.gradle'
 
 dependencies {
-    // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
@@ -58,15 +43,17 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-mysql'
 
-    // Lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
-    // Test
-    testImplementation 'org.assertj:assertj-core:3.24.2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
+    // Fixture-Monkey
     testImplementation 'com.navercorp.fixturemonkey:fixture-monkey-starter:0.6.8'
+}
+
+configurations {
+    compileOnly.extendsFrom annotationProcessor
+    querydsl.extendsFrom compileClasspath
+}
+
+repositories {
+    mavenCentral()
 }
 
 tasks.named('test') {
