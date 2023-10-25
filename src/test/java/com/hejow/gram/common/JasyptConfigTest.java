@@ -1,4 +1,4 @@
-package com.hejow.gram;
+package com.hejow.gram.common;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,7 @@ import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.salt.StringFixedSaltGenerator;
 import org.junit.jupiter.api.Test;
 
-class JasyptTest {
+class JasyptConfigTest {
 	@Test
 	void encryptString_Success_EqualsWithDecrypted() {
 		// given
