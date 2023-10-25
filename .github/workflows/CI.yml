@@ -1,12 +1,11 @@
 name: CI
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
 env:
-  REVIEWERS: Eojoonhyuk
   GRADLE_VERSION: 8.3
   JAVA_VERSION: '17'
   JAVA_DISTRIBUTION: 'temurin'
@@ -14,18 +13,7 @@ env:
   JACOCO_TEST_REPORT: /build/reports/jacoco/test/jacocoTestReport.xml
 
 jobs:
-  assign:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Assign Reviewer
-        uses: hkusu/review-assign-action@v1
-        with:
-          assignees: ${{ github.actor }}
-          reviewers: Eojoonhyuk
-
   check:
-    needs: assign-reviewer
     runs-on: ubuntu-latest
 
     steps:
@@ -59,6 +47,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 80
+
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
 
   build:
     needs: check
