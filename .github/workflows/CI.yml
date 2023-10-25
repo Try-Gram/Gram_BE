@@ -14,7 +14,7 @@ env:
   JACOCO_TEST_REPORT: /build/reports/jacoco/test/jacocoTestReport.xml
 
 jobs:
-  assign-reviewer:
+  assign:
     runs-on: ubuntu-latest
 
     steps:
