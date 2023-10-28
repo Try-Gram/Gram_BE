@@ -11,10 +11,6 @@ file('jacoco-exclude-classes').withInputStream {
 apply plugin: 'java'
 apply plugin: 'jacoco'
 
-repositories {
-    mavenCentral()
-}
-
 jacocoTestReport {
     dependsOn test
 
