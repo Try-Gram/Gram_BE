@@ -11,16 +11,13 @@ file('jacoco-exclude-classes').withInputStream {
 apply plugin: 'java'
 apply plugin: 'jacoco'
 
-repositories {
-    mavenCentral()
-}
-
 jacocoTestReport {
     dependsOn test
 
     reports {
         xml.required = true
         html.required = true
+        csv.required = true
     }
 
     afterEvaluate {
